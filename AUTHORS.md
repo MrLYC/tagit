@@ -2,7 +2,7 @@
 
 ## Development Lead
 
-- taggit [mrlyc](https://github.com/mrlyc)
+- tagit [mrlyc](https://github.com/mrlyc)
 
 ## Contributors
 

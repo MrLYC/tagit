@@ -1,13 +1,11 @@
 package main
 
 import (
-	
-	"github.com/mrlyc/taggit/cmd"
+	"github.com/mrlyc/tagit/cmd"
 )
 
 func main() {
 
-    
-    cmd.Execute()
-	
+	cmd.Execute()
+
 }

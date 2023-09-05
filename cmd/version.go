@@ -2,7 +2,8 @@ package cmd
 
 import (
 	"fmt"
-	"github.com/mrlyc/taggit/version"
+
+	"github.com/mrlyc/tagit/version"
 	"github.com/spf13/cobra"
 )
 

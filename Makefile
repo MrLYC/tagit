@@ -3,18 +3,18 @@
 
 
 
-BIN_NAME=taggit
+BIN_NAME=tagit
 
 VERSION := $(shell grep "const Version " version/version.go | sed -E 's/.*"(.+)"$$/\1/')
 GIT_COMMIT=$(shell git rev-parse HEAD)
 GIT_DIRTY=$(shell test -n "`git status --porcelain`" && echo "+CHANGES" || true)
 BUILD_DATE=$(shell date '+%Y-%m-%d-%H:%M:%S')
-IMAGE_NAME := "mrlyc/taggit"
+IMAGE_NAME := "mrlyc/tagit"
 
 default: test
 
 help:
-	@echo 'Management commands for taggit:'
+	@echo 'Management commands for tagit:'
 	@echo
 	@echo 'Usage:'
 	@echo '    make build           Compile the project.'
@@ -30,7 +30,7 @@ help:
 build:
 	@echo "building ${BIN_NAME} ${VERSION}"
 	@echo "GOPATH=${GOPATH}"
-	go build -ldflags "-X github.com/mrlyc/taggit/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/mrlyc/taggit/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}
+	go build -ldflags "-X github.com/mrlyc/tagit/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/mrlyc/tagit/version.BuildDate=${BUILD_DATE}" -o bin/${BIN_NAME}
 
 get-deps:
 	dep ensure
@@ -38,7 +38,7 @@ get-deps:
 build-alpine:
 	@echo "building ${BIN_NAME} ${VERSION}"
 	@echo "GOPATH=${GOPATH}"
-	go build -ldflags '-w -linkmode external -extldflags "-static" -X github.com/mrlyc/taggit/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/mrlyc/taggit/version.BuildDate=${BUILD_DATE}' -o bin/${BIN_NAME}
+	go build -ldflags '-w -linkmode external -extldflags "-static" -X github.com/mrlyc/tagit/version.GitCommit=${GIT_COMMIT}${GIT_DIRTY} -X github.com/mrlyc/tagit/version.BuildDate=${BUILD_DATE}' -o bin/${BIN_NAME}
 
 package:
 	@echo "building image ${BIN_NAME} ${VERSION} $(GIT_COMMIT)"

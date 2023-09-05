@@ -1,4 +1,4 @@
-# taggit
+# tagit
 
 Tag git project
 
@@ -10,7 +10,7 @@ Running it then should be as simple as:
 
 ```console
 $ make
-$ ./bin/taggit
+$ ./bin/tagit
 ```
 
 ### Testing
