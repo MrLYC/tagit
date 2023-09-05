@@ -56,7 +56,6 @@ func init() {
 	flags.String("gitlab-token", "", "gitlab token")
 
 	_ = gitlabCmd.MarkFlagRequired("name")
-	_ = gitlabCmd.MarkFlagRequired("project")
 	_ = gitlabCmd.MarkFlagRequired("gitlab-url")
 	_ = gitlabCmd.MarkFlagRequired("gitlab-token")
 }
