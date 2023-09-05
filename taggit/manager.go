@@ -4,12 +4,7 @@ type Tagger interface {
 	CreateTag(commitID string, name string, message string) error
 }
 
-func TagProject(tagger Tagger, projectPath string, name string, message string) (string, error) {
-	repo, err := NewRepository(projectPath)
-	if err != nil {
-		return "", err
-	}
-
+func TagProject(tagger Tagger, repo *Repository, name string, message string) (string, error) {
 	commitID, err := repo.GetCurrentCommitID()
 	if err != nil {
 		return "", err
