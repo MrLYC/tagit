@@ -15,10 +15,11 @@ var commitIDCmd = &cobra.Command{
 		flags := cmd.Flags()
 		path, _ := flags.GetString("path")
 
-		commitID, err := tagit.GetCurrentCommitID(path)
-		if err != nil {
-			panic(err)
-		}
+		repo, err := tagit.NewRepository(path)
+		checkError(err)
+
+		commitID, err := repo.GetCurrentCommitID()
+		checkError(err)
 
 		fmt.Println(commitID)
 	},

@@ -7,6 +7,12 @@ import (
 	"github.com/spf13/cobra"
 )
 
+func checkError(err error) {
+	if err != nil {
+		panic(err)
+	}
+}
+
 var cfgFile string
 
 // rootCmd represents the base command when called without any subcommands
