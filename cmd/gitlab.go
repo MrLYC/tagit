@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"path"
 
-	tagit "github.com/mrlyc/tagit/taggit"
+	"github.com/mrlyc/tagit/tagit"
 	"github.com/spf13/cobra"
 )
 
