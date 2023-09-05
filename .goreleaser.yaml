@@ -1,2 +1,4 @@
 upx:
   - enabled: true
+archives:
+  - format: binary
