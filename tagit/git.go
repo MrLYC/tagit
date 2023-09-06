@@ -18,7 +18,7 @@ func (r *Repository) CreateTag(commitID string, name string, message string) err
 	return eris.Wrapf(err, "failed to create tag %s", name)
 }
 
-func (r *Repository) GetCurrentCommitID() (string, error) {
+func (r *Repository) GetHeadCommitID() (string, error) {
 	ref, err := r.repo.Head()
 	if err != nil {
 		return "", eris.Wrap(err, "failed to get head ref")
@@ -35,6 +35,15 @@ func (r *Repository) GetRemoteUrl(name string) (string, error) {
 
 	config := remote.Config()
 	return config.URLs[0], nil
+}
+
+func (r *Repository) PushTo(remoteName string) error {
+	err := r.repo.Push(&git.PushOptions{
+		RemoteName: remoteName,
+		FollowTags: true,
+	})
+
+	return eris.Wrap(err, "failed to push to remote")
 }
 
 func NewRepository(path string) (*Repository, error) {

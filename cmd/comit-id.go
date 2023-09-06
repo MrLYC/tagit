@@ -18,7 +18,7 @@ var commitIDCmd = &cobra.Command{
 		repo, err := tagit.NewRepository(path)
 		checkError(err)
 
-		commitID, err := repo.GetCurrentCommitID()
+		commitID, err := repo.GetHeadCommitID()
 		checkError(err)
 
 		fmt.Println(commitID)

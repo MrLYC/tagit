@@ -17,13 +17,23 @@ var localCmd = &cobra.Command{
 		tagName, _ := flags.GetString("name")
 		tagMessage, _ := flags.GetString("message")
 
-		repo, err := tagit.NewRepository(projectPath)
+		manager, err := tagit.NewManager(projectPath)
 		checkError(err)
 
-		commitID, err := tagit.TagProject(repo, repo, tagName, tagMessage)
+		repo := manager.Repository()
+
+		commitID, err := manager.TagHead(repo, tagName, tagMessage)
 		checkError(err)
 
 		fmt.Printf("Tag name[%s] of project[%s] on commit[%s]\n", tagName, projectPath, commitID)
+
+		pushTo, _ := flags.GetString("push-to")
+		if pushTo != "" {
+			err = repo.PushTo(pushTo)
+			checkError(err)
+
+			fmt.Printf("Pushed to remote[%s]\n", pushTo)
+		}
 	},
 }
 
@@ -34,6 +44,7 @@ func init() {
 	flags.StringP("path", "p", ".", "path to git repository")
 	flags.StringP("name", "n", "", "tag name")
 	flags.StringP("message", "m", "-", "tag message")
+	flags.String("push-to", "", "remote name")
 
 	_ = localCmd.MarkFlagRequired("name")
 }

@@ -1,5 +1,8 @@
 upx:
-  - enabled: true
+  - enabled: false
 archives:
   - format: binary
     name_template: "{{ .ProjectName }}_{{ .Os }}_{{ .Arch }}"
+builds:
+  - env:
+      - CGO_ENABLED=0

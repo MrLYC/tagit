@@ -23,6 +23,9 @@ var gitlabCmd = &cobra.Command{
 			projectName = path.Base(projectPath)
 		}
 
+		manager, err := tagit.NewManager(projectPath)
+		checkError(err)
+
 		token, _ := flags.GetString("gitlab-token")
 		url, _ := flags.GetString("gitlab-url")
 		gitlab, err := tagit.NewGitlab(token, url)
@@ -33,11 +36,8 @@ var gitlabCmd = &cobra.Command{
 
 		fmt.Printf("Found project id: %d\n", pid)
 
-		repo, err := tagit.NewRepository(projectPath)
-		checkError(err)
-
 		tagger := tagit.NewGitlabTagger(pid, gitlab)
-		commitID, err := tagit.TagProject(tagger, repo, tagName, tagMessage)
+		commitID, err := manager.TagHead(tagger, tagName, tagMessage)
 		checkError(err)
 
 		fmt.Printf("Tag name[%s] of project[%s] on commit[%s]\n", tagName, projectName, commitID)
