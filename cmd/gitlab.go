@@ -31,7 +31,7 @@ var gitlabCmd = &cobra.Command{
 		gitlab, err := tagit.NewGitlab(token, url)
 		checkError(err)
 
-		pid, err := gitlab.GetProjectIDByName(projectName, tagit.ProjectNameDistance(projectName))
+		pid, err := gitlab.GetProjectIDByName(projectName, tagit.ProjectUrlDistance(projectName))
 		checkError(err)
 
 		fmt.Printf("Found project id: %d\n", pid)
