@@ -10,17 +10,17 @@ type Gitlab struct {
 	client *gitlab.Client
 }
 
-func (g *Gitlab) GetProjectIDByName(name string, scoringFn func(project *gitlab.Project) int) (int, error) {
+func (g *Gitlab) GetProjectByName(name string, scoringFn func(project *gitlab.Project) int) (*gitlab.Project, error) {
 	projects, _, err := g.client.Projects.ListProjects(&gitlab.ListProjectsOptions{
 		Search: &name,
 	})
 
 	if err != nil {
-		return 0, eris.Wrapf(err, "failed to list projects")
+		return nil, eris.Wrapf(err, "failed to list projects")
 	}
 
 	if len(projects) == 0 {
-		return 0, eris.New("project not found")
+		return nil, eris.New("project not found")
 	}
 
 	chosenProject := projects[0]
@@ -34,7 +34,7 @@ func (g *Gitlab) GetProjectIDByName(name string, scoringFn func(project *gitlab.
 		}
 	}
 
-	return chosenProject.ID, nil
+	return chosenProject, nil
 }
 
 func NewGitlab(token string, url string) (*Gitlab, error) {

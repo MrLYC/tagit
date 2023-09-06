@@ -31,12 +31,18 @@ var gitlabCmd = &cobra.Command{
 		gitlab, err := tagit.NewGitlab(token, url)
 		checkError(err)
 
+		pushTo, _ := flags.GetString("push-to")
+		repo := manager.Repository()
+		remoteUrl, err := repo.GetRemoteUrl(pushTo)
+		checkError(err)
+
 		projectID, _ := flags.GetInt("project-id")
 		if projectID == 0 {
-			projectID, err := gitlab.GetProjectIDByName(projectName, tagit.ProjectUrlDistance(projectName))
+			projectInfo, err := gitlab.GetProjectByName(projectName, tagit.ProjectUrlDistance(remoteUrl))
 			checkError(err)
 
-			fmt.Printf("Found project id: %d\n", projectID)
+			projectID = projectInfo.ID
+			fmt.Printf("Found project[%s] id=%d\n", projectInfo.NameWithNamespace, projectID)
 		}
 
 		tagger := tagit.NewGitlabTagger(projectID, gitlab)
@@ -54,6 +60,7 @@ func init() {
 	flags.StringP("path", "p", ".", "path to git repository")
 	flags.StringP("name", "n", "", "tag name")
 	flags.StringP("message", "m", "-", "tag message")
+	flags.String("push-to", "", "remote name")
 	flags.String("project", "", "gitlab project name")
 	flags.Int("project-id", 0, "gitlab project id")
 	flags.String("gitlab-url", "", "gitlab url")
