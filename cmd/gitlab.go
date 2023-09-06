@@ -60,7 +60,7 @@ func init() {
 	flags.StringP("path", "p", ".", "path to git repository")
 	flags.StringP("name", "n", "", "tag name")
 	flags.StringP("message", "m", "-", "tag message")
-	flags.String("push-to", "", "remote name")
+	flags.String("push-to", "origin", "remote name")
 	flags.String("project", "", "gitlab project name")
 	flags.Int("project-id", 0, "gitlab project id")
 	flags.String("gitlab-url", "", "gitlab url")
